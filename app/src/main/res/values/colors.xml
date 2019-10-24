@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#101010</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#8888FF</color>
+    <color name="colorGood">#88FF88</color>
+    <color name="colorBad">#FF8888</color>
+    <color name="colorBackground">#202020</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorButtonNumber">@color/colorAccent</color>
+    <color name="colorButtonMark">@color/colorGood</color>
+    <color name="colorButtonModify">@color/colorBad</color>
+</resources>

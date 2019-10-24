@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="titleCalculator">Laskin</string>
+    <string name="viewPagerTitleCalculator">LASKIN</string>
+    <string name="viewPagerTitleHistory">HISTORIA</string>
+    <string name="viewPagerTitleVariables">MUUTTUJAT</string>
+    <string name="mainMenuAngleTitleRadians">Kulmat: Radiaanit</string>
+    <string name="mainMenuAngleTitleDegrees">Kulmat: Asteet</string>
+    <string name="mainMenuAngleRadians">Radiaanit</string>
+    <string name="mainMenuAngleDegrees">Asteet</string>
+    <string name="mainMenuClearHistory">Poista historia</string>
+    <string name="mainMenuClearVariables">Poista muuttujat</string>
+    <string name="contextMenuHistoryUse">Käytä</string>
+    <string name="contextMenuHistoryMakeVariable">Tee muuttuja</string>
+    <string name="contextMenuHistoryDelete">Poista</string>
+    <string name="contextMenuVariablesUse">Käytä</string>
+    <string name="contextMenuVariablesEdit">Muokkaa</string>
+    <string name="contextMenuVariablesDelete">Poista</string>
+    <string name="variablesEmptyName">Nimi on tyhjä!</string>
+    <string name="variablesEmptyValue">Arvo on tyhjä!</string>
+    <string name="variablesNameExist">Nimi on jo olemassa!</string>
+    <string name="variablesNameFunction">Funktion nimeä ei voi käyttää!</string>
+    <string name="variablesHintName">Nimi</string>
+    <string name="variablesHintValue">Arvo</string>
+    <string name="variablesSaveVariable">TALLENNA MUUTTUJA</string>
+</resources>

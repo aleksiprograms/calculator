@@ -1,0 +1,28 @@
+<resources>
+    <string name="appName">Calculator</string>
+    <string name="sharedPreferences">com.aleksiprograms.calculator</string>
+    <string name="sharedPreferencesAngleRadians">com.aleksiprograms.calculator.angle.radians</string>
+    <string name="titleCalculator">Calculator</string>
+    <string name="viewPagerTitleCalculator">CALCULATOR</string>
+    <string name="viewPagerTitleHistory">HISTORY</string>
+    <string name="viewPagerTitleVariables">VARIABLES</string>
+    <string name="mainMenuAngleTitleRadians">Angles: Radians</string>
+    <string name="mainMenuAngleTitleDegrees">Angles: Degrees</string>
+    <string name="mainMenuAngleRadians">Radians</string>
+    <string name="mainMenuAngleDegrees">Degrees</string>
+    <string name="mainMenuClearHistory">Clear history</string>
+    <string name="mainMenuClearVariables">Clear variables</string>
+    <string name="contextMenuHistoryUse">Use</string>
+    <string name="contextMenuHistoryMakeVariable">Make variable</string>
+    <string name="contextMenuHistoryDelete">Edit</string>
+    <string name="contextMenuVariablesUse">Use</string>
+    <string name="contextMenuVariablesEdit">Edit</string>
+    <string name="contextMenuVariablesDelete">Delete</string>
+    <string name="variablesEmptyName">Name is empty!</string>
+    <string name="variablesEmptyValue">Value is empty!</string>
+    <string name="variablesNameExist">Name already exists!</string>
+    <string name="variablesNameFunction">Can not use a function name!</string>
+    <string name="variablesHintName">Name</string>
+    <string name="variablesHintValue">Value</string>
+    <string name="variablesSaveVariable">SAVE VARIABLE</string>
+</resources>
