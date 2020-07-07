@@ -14,11 +14,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "DATABASE_CALCULATOR";
     private static final String TABLE_EQUATIONS = "TABLE_EQUATIONS";
     private static final String TABLE_VARIABLES = "TABLE_VARIABLES";
-    private static final String COLUMN_EQUATION_ID         = "COLUMN_EQUATION_ID";
+    private static final String COLUMN_EQUATION_ID = "COLUMN_EQUATION_ID";
     private static final String COLUMN_EQUATION_EXPRESSION = "COLUMN_EQUATION_EXPRESSION";
-    private static final String COLUMN_EQUATION_RESULT     = "COLUMN_EQUATION_RESULT";
-    private static final String COLUMN_VARIABLES_ID    = "COLUMN_VARIABLES_ID";
-    private static final String COLUMN_VARIABLES_NAME  = "COLUMN_VARIABLES_NAME";
+    private static final String COLUMN_EQUATION_RESULT = "COLUMN_EQUATION_RESULT";
+    private static final String COLUMN_VARIABLES_ID = "COLUMN_VARIABLES_ID";
+    private static final String COLUMN_VARIABLES_NAME = "COLUMN_VARIABLES_NAME";
     private static final String COLUMN_VARIABLES_VALUE = "COLUMN_VARIABLES_VALUE";
 
     private static DatabaseHelper instance;
@@ -31,25 +31,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (instance == null)
             instance = new DatabaseHelper(context.getApplicationContext());
         return instance;
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_EQUATIONS + "("
-                + COLUMN_EQUATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_EQUATION_EXPRESSION + " TEXT,"
-                + COLUMN_EQUATION_RESULT + " TEXT)");
-        db.execSQL("CREATE TABLE " + TABLE_VARIABLES + "("
-                + COLUMN_VARIABLES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_VARIABLES_NAME + " TEXT,"
-                + COLUMN_VARIABLES_VALUE + " TEXT)");
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EQUATIONS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_VARIABLES);
-        onCreate(db);
     }
 
     public static long insertEquation(Equation equation, Context context) {
@@ -149,5 +130,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(variable.getId())});
         db.close();
         return i;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + TABLE_EQUATIONS + "("
+                + COLUMN_EQUATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_EQUATION_EXPRESSION + " TEXT,"
+                + COLUMN_EQUATION_RESULT + " TEXT)");
+        db.execSQL("CREATE TABLE " + TABLE_VARIABLES + "("
+                + COLUMN_VARIABLES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_VARIABLES_NAME + " TEXT,"
+                + COLUMN_VARIABLES_VALUE + " TEXT)");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EQUATIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_VARIABLES);
+        onCreate(db);
     }
 }

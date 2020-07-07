@@ -1,21 +1,23 @@
 package com.aleksiprograms.calculator.tools;
 
 public class CharStack {
-    private char data[];
+
+    private char[] data;
     private int top;
 
-    public CharStack(){
+    public CharStack() {
         data = new char[100];
         top = -1;
     }
 
-    public void push(char c) {
-        data[++top] = c;
+    public void push(char character) {
+        data[++top] = character;
     }
 
     public char pop() {
-        if(top < 0)
-            return'(';
+        if (top < 0) {
+            return '(';
+        }
         return data[top--];
     }
 
@@ -24,13 +26,14 @@ public class CharStack {
     }
 
     public char peek() {
-        if(top < 0)
+        if (top < 0) {
             return '(';
+        }
         return data[top];
 
     }
 
     public void clear() {
-        top =- 1;
+        top = -1;
     }
 }

@@ -7,18 +7,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.aleksiprograms.calculator.R;
 import com.aleksiprograms.calculator.tools.Variable;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 public class VariablesAdapter extends ArrayAdapter<Variable> {
 
     public VariablesAdapter(@NonNull Context context, ArrayList<Variable> items) {
-        super(context, R.layout.history_row, items);
+        super(context, R.layout.variables_row, items);
     }
 
     @NonNull

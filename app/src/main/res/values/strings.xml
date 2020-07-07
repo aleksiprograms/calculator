@@ -14,7 +14,7 @@
     <string name="mainMenuClearVariables">Clear variables</string>
     <string name="contextMenuHistoryUse">Use</string>
     <string name="contextMenuHistoryMakeVariable">Make variable</string>
-    <string name="contextMenuHistoryDelete">Edit</string>
+    <string name="contextMenuHistoryDelete">Delete</string>
     <string name="contextMenuVariablesUse">Use</string>
     <string name="contextMenuVariablesEdit">Edit</string>
     <string name="contextMenuVariablesDelete">Delete</string>

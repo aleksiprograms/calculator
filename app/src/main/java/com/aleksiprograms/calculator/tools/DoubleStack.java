@@ -1,7 +1,8 @@
 package com.aleksiprograms.calculator.tools;
 
 public class DoubleStack {
-    private double data[];
+
+    private double[] data;
     private int top;
 
     public DoubleStack() {
@@ -9,8 +10,8 @@ public class DoubleStack {
         top = -1;
     }
 
-    public void push(double c) {
-        data[++top] = c;
+    public void push(double number) {
+        data[++top] = number;
     }
 
     public double pop() {
@@ -22,6 +23,6 @@ public class DoubleStack {
     }
 
     public void clear() {
-        top =- 1;
+        top = -1;
     }
 }

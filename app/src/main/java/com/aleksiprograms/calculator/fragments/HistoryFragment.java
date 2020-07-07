@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import androidx.fragment.app.Fragment;
+
 import com.aleksiprograms.calculator.MainActivity;
 import com.aleksiprograms.calculator.R;
 import com.aleksiprograms.calculator.adapters.HistoryAdapter;
@@ -20,29 +22,47 @@ import com.aleksiprograms.calculator.tools.Equation;
 
 import java.util.ArrayList;
 
-import androidx.fragment.app.Fragment;
-
 public class HistoryFragment extends Fragment {
 
-    private ListView listViewHistory;
-    private ListAdapter listAdapterHistory ;
+    private HistoryListener historyListener;
     private static ArrayList<Equation> equationsList;
+    private ListView listViewHistory;
+    private ListAdapter listAdapterHistory;
 
-    HistoryFragment.HistoryListener historyListener;
+    public HistoryFragment() {
+    }
+
     public interface HistoryListener {
         void sendEquationFromHistoryToCalculator(Equation equation);
         void sendEquationFromHistoryToVariables(Equation equation);
     }
 
-    public HistoryFragment() {}
+    public void receiveEquationFromCalculatorToHistory(Equation equation) {
+        DatabaseHelper.insertEquation(equation, getContext());
+        equationsList.add(equation);
+        listViewHistory.invalidateViews();
+        listToEnd();
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            historyListener = (HistoryFragment.HistoryListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString());
+        }
+    }
+
+    @Override
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
         equationsList = DatabaseHelper.getAllEquations(getContext());
-        listViewHistory = (ListView)view.findViewById(R.id.historyListView);
+        listViewHistory = (ListView) view.findViewById(R.id.historyListView);
         listAdapterHistory = new HistoryAdapter(getContext(), equationsList);
         listViewHistory.setAdapter(listAdapterHistory);
         listViewHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -57,13 +77,6 @@ public class HistoryFragment extends Fragment {
         return view;
     }
 
-    public void receiveEquationFromCalculatorToHistory(Equation equation) {
-        DatabaseHelper.insertEquation(equation, getContext());
-        equationsList.add(equation);
-        listViewHistory.invalidateViews();
-        listToEnd();
-    }
-
     private void listToEnd() {
         listViewHistory.post(new Runnable() {
             @Override
@@ -74,18 +87,10 @@ public class HistoryFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            historyListener = (HistoryFragment.HistoryListener)getActivity();
-        } catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().toString());
-        }
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu contextMenu, View view,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(
+            ContextMenu contextMenu,
+            View view,
+            ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(contextMenu, view, menuInfo);
         if (view.getId() == R.id.historyListView) {
             MenuInflater menuInflater = getActivity().getMenuInflater();
@@ -100,11 +105,13 @@ public class HistoryFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.contextMenuHistoryCopy:
-                historyListener.sendEquationFromHistoryToCalculator(equationsList.get(info.position));
+                historyListener.sendEquationFromHistoryToCalculator(
+                        equationsList.get(info.position));
                 MainActivity.changePage(1);
                 return true;
             case R.id.contextMenuHistoryMakeVariable:
-                historyListener.sendEquationFromHistoryToVariables(equationsList.get(info.position));
+                historyListener.sendEquationFromHistoryToVariables(
+                        equationsList.get(info.position));
                 MainActivity.changePage(2);
                 return true;
             case R.id.contextMenuHistoryDelete:
