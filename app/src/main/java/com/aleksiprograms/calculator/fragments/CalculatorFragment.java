@@ -5,8 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -97,6 +99,18 @@ public class CalculatorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_calculator, container, false);
         editTextCalculation = (EditText) view.findViewById(R.id.calculatorEditTextExpression);
         editTextCalculation.requestFocus();
+
+        // Solution that worked to disable the system keyboard on
+        // Samsung Galaxy S8, Android 9, API 28
+        getActivity().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        editTextCalculation.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                return true;
+            }
+        });
+
         gridLayoutButtons = (GridLayout) view.findViewById(R.id.calculatorGridLayoutButtons);
         gridLayoutButtons.setRowCount(ROWS);
         gridLayoutButtons.setColumnCount(COLUMNS);
