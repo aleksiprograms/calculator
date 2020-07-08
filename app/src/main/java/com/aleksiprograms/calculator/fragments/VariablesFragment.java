@@ -96,7 +96,7 @@ public class VariablesFragment extends Fragment {
         buttonAddVariable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String variableName = String.valueOf(editTextName.getText());
+                String variableName = String.valueOf(editTextName.getText()).toUpperCase();
                 String variableValue = String.valueOf(editTextValue.getText());
                 if (variableName.equals("")) {
                     Toast.makeText(
