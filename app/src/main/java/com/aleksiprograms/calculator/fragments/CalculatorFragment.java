@@ -26,7 +26,7 @@ import java.util.Objects;
 
 public class CalculatorFragment extends Fragment {
 
-    private class BI {
+    private static class BI {
         String text;
         String color;
         BI(String text, String color) {
@@ -35,17 +35,6 @@ public class CalculatorFragment extends Fragment {
         }
     }
 
-    public static final String[][] FUNCTIONS = {
-            {"asin", "z"},
-            {"acos", "k"},
-            {"atan", "d"},
-            {"sin", "s"},
-            {"cos", "c"},
-            {"tan", "t"},
-            {"sqrt", "r"},
-            {"abs", "a"},
-            {"log", "l"},
-            {"ln", "n"}};
     private final int ROWS = 6;
     private final int COLUMNS = 4;
     private final BI[][] BUTTON_INFO_PRIMARY = {
@@ -53,14 +42,14 @@ public class CalculatorFragment extends Fragment {
             {new BI("7", "b"), new BI("8", "b"), new BI("9", "b"), new BI("/", "g")},
             {new BI("4", "b"), new BI("5", "b"), new BI("6", "b"), new BI("*", "g")},
             {new BI("1", "b"), new BI("2", "b"), new BI("3", "b"), new BI("-", "g")},
-            {new BI(".", "g"), new BI("0", "b"), new BI("%", "g"), new BI("+", "g")},
+            {new BI(".", "g"), new BI("0", "b"), new BI("^()", "g"), new BI("+", "g")},
             {new BI("MORE", "G"), new BI("(", "g"), new BI(")", "g"), new BI("=", "B")}};
     private final BI[][] BUTTON_INFO_SECONDARY = {
             {new BI("<-", "r"), new BI("->", "r"), new BI("<X", "r"), new BI("C", "r")},
-            {new BI("asin()", "b"), new BI("acos()", "b"), new BI("atan()", "b"), new BI("/", "g")},
-            {new BI("sin()", "b"), new BI("cos()", "b"), new BI("tan()", "b"), new BI("*", "g")},
-            {new BI("ln()", "b"), new BI("log()", "b"), new BI("abs()", "b"), new BI("-", "g")},
-            {new BI("sqrt()", "b"), new BI("^()", "b"), new BI("pi", "b"), new BI("+", "g")},
+            {new BI("sin()", "b"), new BI("cos()", "b"), new BI("tan()", "b"), new BI("/", "g")},
+            {new BI("ln()", "b"), new BI("log()", "b"), new BI("abs()", "b"), new BI("*", "g")},
+            {new BI("sqrt()", "b"), new BI("e", "b"), new BI("pi", "b"), new BI("-", "g")},
+            {new BI(".", "g"), new BI("0", "b"), new BI("^()", "g"), new BI("+", "g")},
             {new BI("MORE", "G"), new BI("(", "g"), new BI(")", "g"), new BI("=", "B")}};
 
     private CalculatorListener calculatorListener;
@@ -150,7 +139,6 @@ public class CalculatorFragment extends Fragment {
                                 String expression = String.valueOf(editTextCalculation.getText());
                                 String expressionToSave = expression;
                                 expression = variableNamesToValues(expression);
-                                expression = functionsToShorter(expression);
                                 String result = Calculator.calculate(expression);
                                 calculatorListener.sendEquationFromCalculatorToHistory(
                                         new Equation(expressionToSave, result));
@@ -234,33 +222,6 @@ public class CalculatorFragment extends Fragment {
                 getResources().getDisplayMetrics());
     }
 
-    private String variableNamesToValues(String expression) {
-        ArrayList<Variable> variables = DatabaseHelper.getAllVariables(getContext());
-        Collections.sort(variables, new Comparator<Variable>() {
-            @Override
-            public int compare(Variable v1, Variable v2) {
-                if (v1.getName().length() > v2.getName().length()) {
-                    return -1;
-                } else {
-                    return v1.getName().compareTo(v2.getName());
-                }
-            }
-        });
-        for (int i = 0; i < variables.size(); i++) {
-            expression = expression.replace(
-                    variables.get(i).getName(),
-                    variables.get(i).getValue());
-        }
-        return expression;
-    }
-
-    private String functionsToShorter(String expression) {
-        for (String[] function : FUNCTIONS) {
-            expression = expression.replace(function[0], function[1]);
-        }
-        return expression;
-    }
-
     private void changeButtons() {
         BI[][] buttonLayout;
         if (showPrimaryButtons) {
@@ -300,5 +261,25 @@ public class CalculatorFragment extends Fragment {
                 }
             }
         }
+    }
+
+    private String variableNamesToValues(String expression) {
+        ArrayList<Variable> variables = DatabaseHelper.getAllVariables(getContext());
+        Collections.sort(variables, new Comparator<Variable>() {
+            @Override
+            public int compare(Variable v1, Variable v2) {
+                if (v1.getName().length() > v2.getName().length()) {
+                    return -1;
+                } else {
+                    return v1.getName().compareTo(v2.getName());
+                }
+            }
+        });
+        for (int i = 0; i < variables.size(); i++) {
+            expression = expression.replace(
+                    variables.get(i).getName(),
+                    variables.get(i).getValue());
+        }
+        return expression;
     }
 }

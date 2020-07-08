@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.aleksiprograms.calculator.MainActivity;
 import com.aleksiprograms.calculator.R;
 import com.aleksiprograms.calculator.adapters.VariablesAdapter;
+import com.aleksiprograms.calculator.tools.Calculator;
 import com.aleksiprograms.calculator.tools.DatabaseHelper;
 import com.aleksiprograms.calculator.tools.Equation;
 import com.aleksiprograms.calculator.tools.Variable;
@@ -95,25 +96,27 @@ public class VariablesFragment extends Fragment {
         buttonAddVariable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (String.valueOf(editTextName.getText()).equals("")) {
+                String variableName = String.valueOf(editTextName.getText());
+                String variableValue = String.valueOf(editTextValue.getText());
+                if (variableName.equals("")) {
                     Toast.makeText(
                             getContext(),
                             getResources().getString(R.string.variablesEmptyName),
                             Toast.LENGTH_LONG)
                             .show();
-                } else if (doesVariableNameExist(String.valueOf(editTextName.getText()))) {
+                } else if (doesVariableNameExist(variableName)) {
                     Toast.makeText(
                             getContext(),
                             getResources().getString(R.string.variablesNameExist),
                             Toast.LENGTH_LONG)
                             .show();
-                } else if (isVariableNameFunctionName(String.valueOf(editTextName.getText()))) {
+                } else if (isNameReserved(variableName)) {
                     Toast.makeText(
                             getContext(),
-                            getResources().getString(R.string.variablesNameFunction),
+                            getResources().getString(R.string.variablesNameReserved),
                             Toast.LENGTH_LONG)
                             .show();
-                } else if (String.valueOf(editTextValue.getText()).equals("")) {
+                } else if (variableValue.equals("")) {
                     Toast.makeText(
                             getContext(),
                             getResources().getString(R.string.variablesEmptyValue),
@@ -121,14 +124,12 @@ public class VariablesFragment extends Fragment {
                             .show();
                 } else {
                     if (variableToEdit != null) {
-                        variableToEdit.setName(String.valueOf(editTextName.getText()));
-                        variableToEdit.setValue(String.valueOf(editTextValue.getText()));
+                        variableToEdit.setName(variableName);
+                        variableToEdit.setValue(variableValue);
                         DatabaseHelper.updateVariable(variableToEdit, getContext());
                         variableToEdit = null;
                     } else {
-                        Variable variable = new Variable(
-                                String.valueOf(editTextName.getText()),
-                                String.valueOf(editTextValue.getText()));
+                        Variable variable = new Variable(variableName, variableValue);
                         DatabaseHelper.insertVariable(variable, getContext());
                         variablesList.add(variable);
                     }
@@ -204,9 +205,14 @@ public class VariablesFragment extends Fragment {
         return false;
     }
 
-    private boolean isVariableNameFunctionName(String name) {
-        for (int i = 0; i < CalculatorFragment.FUNCTIONS.length; i++) {
-            if (CalculatorFragment.FUNCTIONS[i][0].equals(name)) {
+    private boolean isNameReserved(String name) {
+        for (int i = 0; i < Calculator.CONSTANTS.length; i++) {
+            if (Calculator.CONSTANTS[i][0].equals(name)) {
+                return true;
+            }
+        }
+        for (int i = 0; i < Calculator.FUNCTIONS.length; i++) {
+            if (Calculator.FUNCTIONS[i][0].equals(name)) {
                 return true;
             }
         }

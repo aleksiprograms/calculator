@@ -21,7 +21,7 @@
     <string name="variablesEmptyName">Name is empty!</string>
     <string name="variablesEmptyValue">Value is empty!</string>
     <string name="variablesNameExist">Name already exists!</string>
-    <string name="variablesNameFunction">Can not use a function name!</string>
+    <string name="variablesNameReserved">Name is reserved!</string>
     <string name="variablesHintName">Name</string>
     <string name="variablesHintValue">Value</string>
     <string name="variablesSaveVariable">SAVE VARIABLE</string>

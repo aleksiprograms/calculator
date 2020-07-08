@@ -19,7 +19,7 @@
     <string name="variablesEmptyName">Nimi on tyhjä!</string>
     <string name="variablesEmptyValue">Arvo on tyhjä!</string>
     <string name="variablesNameExist">Nimi on jo olemassa!</string>
-    <string name="variablesNameFunction">Funktion nimeä ei voi käyttää!</string>
+    <string name="variablesNameReserved">Nimi on varattu!</string>
     <string name="variablesHintName">Nimi</string>
     <string name="variablesHintValue">Arvo</string>
     <string name="variablesSaveVariable">TALLENNA MUUTTUJA</string>
