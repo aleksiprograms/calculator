@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -56,7 +57,9 @@ public class CalculatorFragment extends Fragment {
 
     private CalculatorListener calculatorListener;
     private SharedPreferences sharedPreferences;
-    private EditText editTextCalculation;
+    private EditText editTextExpression;
+    private TextView textViewEquals;
+    private TextView textViewResult;
     private GridLayout gridLayoutButtons;
     private Button[][] buttons = new Button[ROWS][COLUMNS];
     private boolean showPrimaryButtons = true;
@@ -69,13 +72,13 @@ public class CalculatorFragment extends Fragment {
     }
 
     public void receiveEquationFromHistoryToCalculator(Equation equation) {
-        editTextCalculation.getText().insert(
-                editTextCalculation.getSelectionStart(), equation.getExpression());
+        editTextExpression.getText().insert(
+                editTextExpression.getSelectionStart(), equation.getExpression());
     }
 
     public void receiveVariableFromVariablesToCalculator(Variable variable) {
-        editTextCalculation.getText().insert(
-                editTextCalculation.getSelectionStart(), variable.getName());
+        editTextExpression.getText().insert(
+                editTextExpression.getSelectionStart(), variable.getName());
     }
 
     @Override
@@ -97,14 +100,16 @@ public class CalculatorFragment extends Fragment {
                 getResources().getString(R.string.sharedPreferences),
                 Context.MODE_PRIVATE);
         View view = inflater.inflate(R.layout.fragment_calculator, container, false);
-        editTextCalculation = (EditText) view.findViewById(R.id.calculatorEditTextExpression);
-        editTextCalculation.requestFocus();
+        editTextExpression = (EditText) view.findViewById(R.id.calculatorEditTextExpression);
+        editTextExpression.requestFocus();
+        textViewEquals = (TextView) view.findViewById(R.id.calculatorTextViewEquals);
+        textViewResult = (TextView) view.findViewById(R.id.calculatorTextViewResult);
 
         // Solution that worked to disable the system keyboard on
         // Samsung Galaxy S8, Android 9, API 28
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        editTextCalculation.setOnTouchListener(new View.OnTouchListener() {
+        editTextExpression.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 return true;
@@ -124,57 +129,58 @@ public class CalculatorFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         if (!finalButton.getText().equals("=")) {
-                            editTextCalculation.setHint("");
+                            textViewEquals.setText("");
+                            textViewResult.setText("");
                         }
 
                         if (finalButton.getText().equals("<-")) {
-                            if (editTextCalculation.getSelectionStart() != 0) {
-                                editTextCalculation.setSelection(
-                                        editTextCalculation.getSelectionStart() - 1);
+                            if (editTextExpression.getSelectionStart() != 0) {
+                                editTextExpression.setSelection(
+                                        editTextExpression.getSelectionStart() - 1);
                             }
                         } else if (finalButton.getText().equals("->")) {
-                            if (editTextCalculation.getSelectionStart()
-                                    != editTextCalculation.getText().length()) {
-                                editTextCalculation.setSelection(
-                                        editTextCalculation.getSelectionStart() + 1);
+                            if (editTextExpression.getSelectionStart()
+                                    != editTextExpression.getText().length()) {
+                                editTextExpression.setSelection(
+                                        editTextExpression.getSelectionStart() + 1);
                             }
                         } else if (finalButton.getText().equals("<X")) {
-                            if (editTextCalculation.getSelectionStart() != 0) {
-                                editTextCalculation.getText().delete(
-                                        editTextCalculation.getSelectionStart() - 1,
-                                        editTextCalculation.getSelectionStart());
+                            if (editTextExpression.getSelectionStart() != 0) {
+                                editTextExpression.getText().delete(
+                                        editTextExpression.getSelectionStart() - 1,
+                                        editTextExpression.getSelectionStart());
                             }
                         } else if (finalButton.getText().equals("C")) {
-                            editTextCalculation.setText("");
+                            editTextExpression.setText("");
                         } else if (finalButton.getText().equals("MORE")) {
                             changeButtons();
                         } else if (finalButton.getText().equals("=")) {
-                            if (editTextCalculation.getText().length() != 0) {
-                                String expression = String.valueOf(editTextCalculation.getText());
+                            if (editTextExpression.getText().length() != 0) {
+                                String expression = String.valueOf(editTextExpression.getText());
                                 String expressionToSave = expression;
                                 expression = variableNamesToValues(expression);
                                 String result = Calculator.calculate(expression);
                                 calculatorListener.sendEquationFromCalculatorToHistory(
                                         new Equation(expressionToSave, result));
-                                editTextCalculation.setText("");
-                                editTextCalculation.setHint(result);
+                                textViewEquals.setText("=");
+                                textViewResult.setText(result);
                                 if (result.contains("ERROR")) {
-                                    editTextCalculation.setHintTextColor(
+                                    textViewResult.setTextColor(
                                             getResources().getColor(R.color.colorBad));
                                 } else {
-                                    editTextCalculation.setHintTextColor(
+                                    textViewResult.setTextColor(
                                             getResources().getColor(R.color.colorGood));
                                 }
                             }
                         } else if (String.valueOf(finalButton.getText()).contains("()")) {
-                            editTextCalculation.getText().insert(
-                                    editTextCalculation.getSelectionStart(),
+                            editTextExpression.getText().insert(
+                                    editTextExpression.getSelectionStart(),
                                     finalButton.getText());
-                            editTextCalculation.setSelection(
-                                    editTextCalculation.getSelectionStart() - 1);
+                            editTextExpression.setSelection(
+                                    editTextExpression.getSelectionStart() - 1);
                         } else {
-                            editTextCalculation.getText().insert(
-                                    editTextCalculation.getSelectionStart(),
+                            editTextExpression.getText().insert(
+                                    editTextExpression.getSelectionStart(),
                                     finalButton.getText());
                         }
                     }
