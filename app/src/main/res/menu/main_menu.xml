@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".CalculatorActivity">
     <item
         android:id="@+id/mainMenuAngle"
@@ -10,20 +10,18 @@
         <menu>
             <item
                 android:id="@+id/mainMenuAngleRadians"
-                android:title="@string/mainMenuAngleRadians">
-            </item>
+                android:title="@string/mainMenuAngleRadians" />
             <item
                 android:id="@+id/mainMenuAngleDegrees"
-                android:title="@string/mainMenuAngleDegrees">
-            </item>
+                android:title="@string/mainMenuAngleDegrees" />
         </menu>
     </item>
     <item
         android:id="@+id/mainMenuClearHistory"
         android:title="@string/mainMenuClearHistory"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/mainMenuClearVariables"
         android:title="@string/mainMenuClearVariables"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 </menu>
