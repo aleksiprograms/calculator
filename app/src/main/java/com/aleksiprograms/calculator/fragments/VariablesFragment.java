@@ -173,7 +173,8 @@ public class VariablesFragment extends Fragment {
                 editTextValue.setText(variableToEdit.getValue());
                 return true;
             case R.id.contextMenuVariablesDelete:
-                DatabaseHelper.deleteVariable(variablesList.get(info.position), getContext());
+                DatabaseHelper.deleteVariable(
+                        variablesList.get(info.position).getId(), getContext());
                 variablesList.remove(info.position);
                 listViewVariables.invalidateViews();
                 return true;

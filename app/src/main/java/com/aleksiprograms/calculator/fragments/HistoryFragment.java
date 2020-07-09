@@ -115,7 +115,8 @@ public class HistoryFragment extends Fragment {
                 MainActivity.changePage(2);
                 return true;
             case R.id.contextMenuHistoryDelete:
-                DatabaseHelper.deleteEquation(equationsList.get(info.position), getContext());
+                DatabaseHelper.deleteEquation(
+                        equationsList.get(info.position).getId(), getContext());
                 equationsList.remove(info.position);
                 listViewHistory.invalidateViews();
                 return true;
