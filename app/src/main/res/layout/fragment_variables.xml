@@ -34,26 +34,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:autofillHints=""
                 android:focusable="true"
                 android:hint="@string/variablesHintName"
                 android:inputType="textCapCharacters"
                 android:maxLength="15"
                 android:textColor="@color/colorWhite"
-                android:textSize="24sp"
-                android:autofillHints="" />
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/variableEditTextValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:autofillHints=""
                 android:focusable="true"
                 android:hint="@string/variablesHintValue"
                 android:inputType="numberDecimal"
                 android:maxLength="15"
                 android:textColor="@color/colorWhite"
-                android:textSize="24sp"
-                android:autofillHints="" />
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/variableButtonSave"

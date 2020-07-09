@@ -27,13 +27,13 @@
                 android:id="@+id/calculatorEditTextExpression"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:cursorVisible="true"
                 android:inputType=""
                 android:text=""
                 android:textColor="@color/colorWhite"
                 android:textSize="24sp"
-                tools:ignore="LabelFor"
-                android:autofillHints="" />
+                tools:ignore="LabelFor" />
         </ScrollView>
 
         <GridLayout
