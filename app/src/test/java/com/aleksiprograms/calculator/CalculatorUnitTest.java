@@ -52,7 +52,7 @@ public class CalculatorUnitTest {
     }
     @Test
     public void testSin() {
-        Calculator.setRadians(false);
+        Calculator.useRadians(false);
         assertEquals("0", Calculator.calculate("sin(0)"));
         assertEquals("1", Calculator.calculate("sin(90)"));
         assertEquals("0", Calculator.calculate("sin(180)"));
@@ -60,7 +60,7 @@ public class CalculatorUnitTest {
         assertEquals("0", Calculator.calculate("sin(360)"));
         assertEquals("0", Calculator.calculate("sin(720)"));
         assertEquals("0.4226182617", Calculator.calculate("sin(25)"));
-        Calculator.setRadians(true);
+        Calculator.useRadians(true);
         assertEquals("0", Calculator.calculate("sin(0)"));
         assertEquals("1", Calculator.calculate("sin(pi/2)"));
         assertEquals("0", Calculator.calculate("sin(pi)"));
@@ -70,7 +70,7 @@ public class CalculatorUnitTest {
     }
     @Test
     public void testCos() {
-        Calculator.setRadians(false);
+        Calculator.useRadians(false);
         assertEquals("1", Calculator.calculate("cos(0)"));
         assertEquals("0", Calculator.calculate("cos(90)"));
         assertEquals("-1", Calculator.calculate("cos(180)"));
@@ -78,7 +78,7 @@ public class CalculatorUnitTest {
         assertEquals("1", Calculator.calculate("cos(360)"));
         assertEquals("1", Calculator.calculate("cos(720)"));
         assertEquals("0.906307787", Calculator.calculate("cos(25)"));
-        Calculator.setRadians(true);
+        Calculator.useRadians(true);
         assertEquals("1", Calculator.calculate("cos(0)"));
         assertEquals("0", Calculator.calculate("cos(pi/2)"));
         assertEquals("-1", Calculator.calculate("cos(pi)"));
@@ -88,13 +88,13 @@ public class CalculatorUnitTest {
     }
     @Test
     public void testTan() {
-        Calculator.setRadians(false);
+        Calculator.useRadians(false);
         assertEquals("0", Calculator.calculate("tan(0)"));
         assertEquals("ERROR", Calculator.calculate("tan(90)"));
         assertEquals("0", Calculator.calculate("tan(180)"));
         assertEquals("ERROR", Calculator.calculate("tan(270)"));
         assertEquals("0", Calculator.calculate("tan(360)"));
-        Calculator.setRadians(true);
+        Calculator.useRadians(true);
         assertEquals("0", Calculator.calculate("tan(0)"));
         assertEquals("ERROR", Calculator.calculate("tan(pi/2)"));
         assertEquals("0", Calculator.calculate("tan(pi)"));
@@ -129,7 +129,7 @@ public class CalculatorUnitTest {
     }
     @Test
     public void testComplexExpressions() {
-        Calculator.setRadians(false);
+        Calculator.useRadians(false);
         assertEquals("11", Calculator.calculate("3*2+4-(4/2)*2+sqrt(25)"));
         assertEquals("1", Calculator.calculate("sin(90)*cos(0)*ln(e)"));
         assertEquals("3", Calculator.calculate("((1+2)*(3-1))/(ln(e)*2)"));

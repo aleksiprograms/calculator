@@ -68,7 +68,7 @@ public class MainActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        Calculator.setRadians(sharedPreferences.getBoolean(
+        Calculator.useRadians(sharedPreferences.getBoolean(
                 getResources().getString(R.string.sharedPreferencesAngleRadians), true));
     }
 
@@ -126,7 +126,7 @@ public class MainActivity
                         getResources().getString(R.string.sharedPreferencesAngleRadians),
                         true)
                         .apply();
-                Calculator.setRadians(true);
+                Calculator.useRadians(true);
                 return true;
             case R.id.mainMenuAngleDegrees:
                 optionsMenu.findItem(R.id.mainMenuAngle).setTitle(
@@ -135,7 +135,7 @@ public class MainActivity
                         getResources().getString(R.string.sharedPreferencesAngleRadians),
                         false)
                         .apply();
-                Calculator.setRadians(false);
+                Calculator.useRadians(false);
                 return true;
             case R.id.mainMenuClearHistory:
                 DatabaseHelper.deleteAllEquations(getApplicationContext());

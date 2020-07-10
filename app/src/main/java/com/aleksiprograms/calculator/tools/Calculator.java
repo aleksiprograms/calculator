@@ -26,7 +26,7 @@ public class Calculator {
     private Calculator() {
     }
 
-    public static void setRadians(boolean radians) {
+    public static void useRadians(boolean radians) {
         Calculator.radians = radians;
     }
 
