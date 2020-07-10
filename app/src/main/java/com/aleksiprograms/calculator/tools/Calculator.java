@@ -39,12 +39,22 @@ public class Calculator {
         try {
             String postfix = infixToPostfix(infix, numbers);
             result = getResult(postfix, numbers);
-            DecimalFormat decimalFormat = new DecimalFormat("#.##########");
-            result = String.valueOf(decimalFormat.format(Double.parseDouble(result)));
+            if (!result.contains("ERROR")) {
+                result = formatResult(result);
+            }
         } catch (Exception ex) {
             result = "ERROR";
         }
         return result;
+    }
+
+    private static String formatResult(String result) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##########");
+        String value = decimalFormat.format(Double.parseDouble(result));
+        if (value.equals("-0")) {
+            value = "0";
+        }
+        return value;
     }
 
     private static String getResult(String postfix, double[] numbers) {
@@ -52,49 +62,69 @@ public class Calculator {
         int n = 0;
         for (int i = 0; i < postfix.length(); i++) {
             char character = postfix.charAt(i);
+            double numberB;
+            double numberA;
             switch (character) {
                 case '#':
                     memory.push(numbers[n++]);
                     break;
                 case '+':
-                    double b = memory.pop();
-                    double a = memory.pop();
-                    memory.push(a + b);
+                    numberB = memory.pop();
+                    numberA = memory.pop();
+                    memory.push(numberA + numberB);
                     break;
                 case '$':
                     memory.push(-memory.pop());
                     break;
                 case '-':
-                    b = memory.pop();
-                    a = memory.pop();
-                    memory.push(a - b);
+                    numberB = memory.pop();
+                    numberA = memory.pop();
+                    memory.push(numberA - numberB);
                     break;
                 case '*':
-                    b = memory.pop();
-                    a = memory.pop();
-                    memory.push(a * b);
+                    numberB = memory.pop();
+                    numberA = memory.pop();
+                    memory.push(numberA * numberB);
                     break;
                 case '/':
-                    b = memory.pop();
-                    a = memory.pop();
-                    memory.push(a / b);
+                    numberB = memory.pop();
+                    numberA = memory.pop();
+                    if (numberB == 0) {
+                        return "ERROR";
+                    }
+                    memory.push(numberA / numberB);
                     break;
                 case '^':
-                    b = memory.pop();
-                    a = memory.pop();
-                    memory.push(Math.pow(a, b));
+                    numberB = memory.pop();
+                    numberA = memory.pop();
+                    if (String.valueOf(Math.pow(numberA, numberB)).equals("NaN")) {
+                        return "ERROR";
+                    }
+                    memory.push(Math.pow(numberA, numberB));
                     break;
                 case 'a':
                     memory.push(Math.abs(memory.pop()));
                     break;
                 case 'r':
-                    memory.push(Math.sqrt(memory.pop()));
+                    numberA = memory.pop();
+                    if (numberA < 0) {
+                        return "ERROR";
+                    }
+                    memory.push(Math.sqrt(numberA));
                     break;
                 case 'n':
-                    memory.push(Math.log(memory.pop()));
+                    numberA = memory.pop();
+                    if (numberA <= 0) {
+                        return "ERROR";
+                    }
+                    memory.push(Math.log(numberA));
                     break;
                 case 'l':
-                    memory.push(Math.log10(memory.pop()));
+                    numberA = memory.pop();
+                    if (numberA <= 0) {
+                        return "ERROR";
+                    }
+                    memory.push(Math.log10(numberA));
                     break;
                 case 's':
                     if (radians) {
@@ -111,10 +141,17 @@ public class Calculator {
                     }
                     break;
                 case 't':
+                    numberA = memory.pop();
                     if (radians) {
-                        memory.push(Math.tan(memory.pop()));
+                        if (formatResult(String.valueOf(Math.cos(numberA))).equals("0")) {
+                            return "ERROR";
+                        }
+                        memory.push(Math.tan(numberA));
                     } else {
-                        memory.push(Math.tan(Math.toRadians(memory.pop())));
+                        if (formatResult(String.valueOf(Math.cos(Math.toRadians(numberA)))).equals("0")) {
+                            return "ERROR";
+                        }
+                        memory.push(Math.tan(Math.toRadians(numberA)));
                     }
                     break;
             }
