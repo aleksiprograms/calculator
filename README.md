@@ -1,11 +1,11 @@
 # Calculator
 A calculator made with native Android.
 
-<p>
+<div>
 <img src="/screenshots/calculatormain.jpg" width="240px">
 <img src="/screenshots/calculatorhistory.jpg" width="240px">
 <img src="/screenshots/calculatorvariables.jpg" width="240px">
-</p>
+</div>
 
 ### Features:
 - operations: +, -, *, /, ^(), sin(), cos(), tan(), ln(), log(), abs(), sqrt()
