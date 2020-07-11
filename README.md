@@ -1,5 +1,5 @@
 # Calculator
-A calculator made with native Android.
+A calculator app made with native Android.
 
 <div>
 <img src="/screenshots/calculatormain.jpg" width="240px">
