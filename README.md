@@ -1,8 +1,12 @@
 # Calculator
-A calculator made with native Android.<br/>
+A calculator made with native Android.
+
+<p>
 <img src="/screenshots/calculatormain.jpg" width="240px">
 <img src="/screenshots/calculatorhistory.jpg" width="240px">
 <img src="/screenshots/calculatorvariables.jpg" width="240px">
+</p>
+
 ### Features:
 - operations: +, -, *, /, ^(), sin(), cos(), tan(), ln(), log(), abs(), sqrt()
 - constants: pi, e
