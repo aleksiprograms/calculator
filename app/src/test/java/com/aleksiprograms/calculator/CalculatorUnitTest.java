@@ -8,6 +8,11 @@ import static org.junit.Assert.*;
 
 public class CalculatorUnitTest {
     @Test
+    public void testConstants() {
+        assertEquals("3.1415926536", Calculator.calculate("pi"));
+        assertEquals("2.7182818285", Calculator.calculate("e"));
+    }
+    @Test
     public void testAddition() {
         assertEquals("5", Calculator.calculate("3+2"));
         assertEquals("5", Calculator.calculate("2+3"));
@@ -139,5 +144,7 @@ public class CalculatorUnitTest {
         assertEquals("ERROR", Calculator.calculate("-5-"));
         assertEquals("ERROR", Calculator.calculate("5*"));
         assertEquals("ERROR", Calculator.calculate("sqrt()"));
+        assertEquals("ERROR", Calculator.calculate("5+a"));
+        assertEquals("ERROR", Calculator.calculate("sin(a)"));
     }
 }
